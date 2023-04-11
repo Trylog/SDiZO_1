@@ -15,20 +15,23 @@ namespace std {
     void DoublyLinkedList::add(int index, int element) {
         if(element==0) {
             if(tailP==NULL) {   //no elements yet
-                headP = new Node(element);
+                headP = static_cast<node *>(malloc(sizeof(struct node)));
+                headP->data = element;
                 tailP = headP;
             } else{
-                Node* temp = new Node(element);
+                node* temp = static_cast<node *>(malloc(sizeof(struct node)));
+                temp->data=element;
                 tailP->prev=temp;
                 temp->next=tailP;
                 tailP=temp;
             }
         } else{
-            Node* tempP=tailP;
+            node* tempP=tailP;
             for(auto i = 1; i<=index;++i){
                 if(tempP->next==NULL){
                     if(i+1==index) {//the last element
-                        Node *temp = new Node(element);
+                        node* temp = static_cast<node *>(malloc(sizeof(struct node)));
+                        temp->data=element;
                         headP->next = temp;
                         temp->prev = headP;
                         headP = temp;
@@ -37,7 +40,8 @@ namespace std {
                 }
                 tempP=tempP->next;
             }
-            Node* temp = new Node(element);
+            node* temp = static_cast<node *>(malloc(sizeof(struct node)));
+            temp->data=element;
             temp->next=tempP;
             temp->prev=tempP->prev;
             tempP->prev->next=temp;
@@ -47,7 +51,7 @@ namespace std {
 
     void DoublyLinkedList::remove(int index) {
 
-        Node* tempP=tailP;
+        node* tempP=tailP;
         for (auto i = 1; i <= index; ++i) {
             if(tempP->next==NULL)throw -1;
             tempP=tempP->next;
@@ -57,7 +61,7 @@ namespace std {
     }
 
     void DoublyLinkedList::display() {
-        Node* tempP=tailP;
+        node* tempP=tailP;
         while(tempP->next!=NULL){
             cout<<tempP->data<<" ";
             tempP=tempP->next;
@@ -77,12 +81,13 @@ namespace std {
                 for (auto i = 0; i < arrayLen; ++i) {
                     if(!input.eof()) {
                         input >> tempIn;
-                        //TODO check if temp is max 32-bit number
                         if (tailP == NULL) {   //no elements yet
-                            headP = new Node(tempIn);
+                            headP = static_cast<node *>(malloc(sizeof(struct node)));
+                            headP->data=tempIn;
                             tailP = headP;
                         } else {
-                            Node *temp = new Node(tempIn);
+                            node *temp = static_cast<node *>(malloc(sizeof(struct node)));
+                            temp->data=tempIn;
                             headP->next = temp;
                             temp->prev = headP;
                             headP = temp;
@@ -95,10 +100,12 @@ namespace std {
 
     void DoublyLinkedList::creatRandom(int size) {
         //TODO createRandom - List, change function name
+        srand(time(NULL)); //initializing random seed using current system time
+        for (auto i = 0; i < size; ++i) add(i, rand()%0xffffffff); //filling list with random numbers in full 32-bit range
     }
 
     bool DoublyLinkedList::find(int element) {
-        Node* tempP=tailP;
+        node* tempP=tailP;
         while(tempP->next!=NULL){
             if(tempP->data==element) return true;
             tempP=tempP->next;

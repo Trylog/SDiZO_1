@@ -11,19 +11,14 @@ namespace std {
 
     class DoublyLinkedList {
     private:
-        class Node{
+        struct node{
         public:
-            Node(int data){
-                this->data=data;
-                this->prev=NULL;
-                this->next=NULL;
-            }
-            int data;
-            struct Node* next;
-            struct Node* prev;
+            int data = NULL;
+            struct node* next = NULL;
+            struct node* prev = NULL;
         };
-        Node* headP;
-        Node* tailP;
+        struct node* headP;
+        struct node* tailP;
     public:
         DoublyLinkedList(int element);
         void buildFromFile(string filePath);

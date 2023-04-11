@@ -3,4 +3,4 @@ project(SDiZO_1)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(SDiZO_1 main.cpp DoublyLinkedList.cpp DoublyLinkedList.h Array.cpp Array.h)
+add_executable(SDiZO_1 main.cpp DoublyLinkedList.cpp DoublyLinkedList.h Array.cpp Array.h BinaryHeap.cpp BinaryHeap.h)
