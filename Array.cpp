@@ -4,8 +4,10 @@
 
 #include <iostream>
 #include <cstdlib>
-#include <time.h>
+#include <ctime>
 #include <fstream>
+#include <random>
+#include <functional>
 #include "Array.h"
 
 namespace std {
@@ -19,7 +21,8 @@ namespace std {
         for(;pointer[arrayLen] != NULL; ++arrayLen);
         if(index<0||index>=arrayLen+1)throw -1; //wrong index
         int* tempPointer=NULL;
-        if (tempPointer = (int*)malloc(sizeof(int) * (arrayLen + 2))){
+        tempPointer = (int*)malloc(sizeof(int) * (arrayLen + 2));
+        if (tempPointer){
             for(auto i = 0; i<index;++i) tempPointer[i] = pointer[i];
             tempPointer[index] = element;
             for(auto i = index; i<=arrayLen;++i) tempPointer[i+1] = pointer[i];
@@ -75,9 +78,12 @@ namespace std {
 
     void Array::creatRandom(int size) {
         free(pointer);
-        if(!(pointer = (int*)malloc(sizeof(int)*size)))throw -2; // failed to allocate memory
-        srand(time(NULL)); //initializing random seed using current system time
-        for (auto i = 0; i < size; ++i) pointer[i]=rand()%0xffffffff; //filling array with random numbers in full 32-bit range
+        if(!(pointer = (int*)malloc(sizeof(int)*size+1)))throw -2; // failed to allocate memory
+        std::default_random_engine generator;
+        std::uniform_int_distribution<int> distribution(0,0xffffffff);
+        auto rando = bind(distribution, generator );
+        for (auto i = 0; i < size; ++i) pointer[i]=rando(); //filling array with random numbers in full int range
+        pointer[size]=NULL;
     }
 
 } // std

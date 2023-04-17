@@ -4,6 +4,8 @@
 
 #include <iostream>
 #include <fstream>
+#include <random>
+#include <functional>
 #include "BinaryHeap.h"
 
 namespace std {
@@ -71,8 +73,10 @@ namespace std {
     }
 
     void BinaryHeap::creatRandom(int size) {
-        srand(time(NULL)); //initializing random seed using current system time
-        for (auto i = 0; i < size; ++i) heap[i] = rand()%0xffffffff; //filling list with random numbers in full 32-bit range
+        std::default_random_engine generator;
+        std::uniform_int_distribution<int> distribution(0,0xffffffff);
+        auto rando = bind(distribution, generator );
+        for (auto i = 0; i < size; ++i) heap[i] = rando(); //filling list with random numbers in full int range
         for(int i = size/2-1;i>=0;--i)heapify(i);
     }
 } // std

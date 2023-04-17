@@ -4,6 +4,8 @@
 
 #include <iostream>
 #include <fstream>
+#include <random>
+#include <functional>
 #include "DoublyLinkedList.h"
 
 namespace std {
@@ -100,8 +102,10 @@ namespace std {
 
     void DoublyLinkedList::creatRandom(int size) {
         //TODO createRandom - List, change function name
-        srand(time(NULL)); //initializing random seed using current system time
-        for (auto i = 0; i < size; ++i) add(i, rand()%0xffffffff); //filling list with random numbers in full 32-bit range
+        std::default_random_engine generator;
+        std::uniform_int_distribution<int> distribution(0,0xffffffff);
+        auto rando = bind(distribution, generator );
+        for (auto i = 0; i < size; ++i) add(i, rando()); //filling list with random numbers in full int range
     }
 
     bool DoublyLinkedList::find(int element) {

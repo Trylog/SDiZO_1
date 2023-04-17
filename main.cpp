@@ -1,12 +1,22 @@
 #include <iostream>
 #include <conio.h>
+#include "Array.h"
+
 
 using namespace std;
 
 void menu();
 
 int main() {
-    menu();
+    //menu();
+    Array jeden;
+    jeden.creatRandom(10);
+    jeden.display();
+    jeden.add(5,12);
+    jeden.remove(7);
+    jeden.display();
+    if (jeden.find(12))cout<<"jest"<<endl;
+    system("pause");
     return 0;
 }
 
