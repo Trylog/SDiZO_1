@@ -2,6 +2,10 @@
 // Created by micha on 16.04.2023.
 //
 
+#include <random>
+#include <functional>
+#include <fstream>
+#include <iostream>
 #include "RedBlackTree.h"
 #define RED 1
 #define BLACK 0
@@ -30,7 +34,17 @@ namespace std {
     }
 
     void RedBlackTree::rotateRight(RedBlackTree::node *element) {
-
+        auto prt = element->parent;
+        prt->left=element->right;
+        if (element->right!=pNil)element->right->parent=prt;
+        element->parent=prt->parent;
+        if (prt->parent==pNil){
+            root=element;
+        } else if(prt==prt->parent->left){
+            prt->parent->left=element;
+        } else prt->parent->right=element;
+        element->right=prt;
+        prt->parent=element;
     }
 
     void RedBlackTree::addFixup(RedBlackTree::node *element) {
@@ -105,10 +119,57 @@ namespace std {
     }
 
     void RedBlackTree::removeFixup(RedBlackTree::node *element) {
-        
+        while (element!=root && element->color==BLACK){
+            if(element==element->parent->left){
+                auto brother = element->parent->right;
+                if (brother->color==RED){
+                    brother->color=BLACK;
+                    element->parent->color=RED;
+                    rotateLeft(element->parent);
+                    brother=element->parent->right;
+                }
+                if (brother->left->color==BLACK && brother->right->color==BLACK){
+                    brother->color=RED;
+                    element=element->parent;
+                }else if (brother->right->color==BLACK){
+                    brother->left->color=BLACK;
+                    brother->color=RED;
+                    rotateRight(brother);
+                    brother=element->parent->right;
+                }
+                brother->color=element->parent->color;
+                element->parent->color=BLACK;
+                brother->right->color=BLACK;
+                rotateLeft(element->parent);
+                element=root;
+            }else{
+                auto brother = element->parent->left;
+                if (brother->color==RED){
+                    brother->color=BLACK;
+                    element->parent->color=RED;
+                    rotateLeft(element->parent);
+                    brother=element->parent->left;
+                }
+                if (brother->right->color==BLACK && brother->left->color==BLACK){
+                    brother->color=RED;
+                    element=element->parent;
+                }else if (brother->left->color==BLACK){
+                    brother->right->color=BLACK;
+                    brother->color=RED;
+                    rotateRight(brother);
+                    brother=element->parent->left;
+                }
+                brother->color=element->parent->color;
+                element->parent->color=BLACK;
+                brother->left->color=BLACK;
+                rotateLeft(element->parent);
+                element=root;
+            }
+        }
+        element->color=BLACK;
     }
 
-    RedBlackTree::node *RedBlackTree::find(int element) {
+    RedBlackTree::node *RedBlackTree::findP(int element) {
         auto x = root;
         while (x!=pNil && x->data!=element){
             if (element < x->data){
@@ -116,6 +177,11 @@ namespace std {
             } else x=x->right;
         }
         return x;
+    }
+
+    bool RedBlackTree::find(int element) {
+        if(findP(element)!=pNil)return true;
+        return false;
     }
 
     RedBlackTree::node *RedBlackTree::treeMinimum(node* x) {
@@ -127,7 +193,7 @@ namespace std {
     }
 
     void RedBlackTree::remove(int data) {
-        auto element=find(data);
+        auto element=findP(data);
         if (element==pNil)throw -1; //this element does not exist in this tree
 
         node* newer= nullptr;
@@ -155,6 +221,51 @@ namespace std {
             treeMin->color=element->color;
         }
         if(ogColor==BLACK) removeFixup(newer);
+    }
+
+    void RedBlackTree::creatRandom(int size) {
+        std::default_random_engine generator;
+        std::uniform_int_distribution<int> distribution(0,0xffffffff);
+        auto rando = bind(distribution, generator );
+        for (auto i = 0; i < size; ++i) add(rando());
+    }
+
+    void RedBlackTree::buildFromFile(string filePath) {
+        fstream input;
+        input.open(filePath, ios::in);
+        if(input.good()) {
+            int size=0;
+            input >> size;
+            if (size) {
+                int tempIn;
+                for (auto i = 0; i < size; ++i) {
+                    if (!input.eof()) {
+                        input >> tempIn;
+                        add(tempIn);
+                    } else throw -3; //wrong file length
+                }
+            }
+        }
+    }
+
+    void RedBlackTree::displayH(node* node, string printed, bool lR) { //lR - left(1) or right(0);
+        if(node!=pNil){
+            cout<<printed;
+            if(lR){
+                cout<<"R---";
+                printed+="  ";
+            } else{
+                cout<<"L---";
+                printed+="| ";
+            }
+            cout<<root->data<<"[" <<(root->color ? "RED" : "BLACK")<<"]"<<endl;
+            displayH(node->left, printed, false);
+            displayH(node->right, printed, true);
+        }
+    }
+
+    void RedBlackTree::display() {
+        if (root) displayH(root, "", true);
     }
 
 } // std

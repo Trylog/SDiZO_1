@@ -61,7 +61,7 @@ namespace std {
         if(input.good()) {
             input >> size;
             if (size) {
-                int tempIn;
+                //int tempIn;
                 for (auto i = 0; i < size; ++i) {
                     if (!input.eof()) {
                         input >> heap[i];

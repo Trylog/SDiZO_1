@@ -27,12 +27,14 @@ namespace std {
         void transplant(node* old, node* newer);
         void removeFixup(node* element);
         node* treeMinimum(node* x);
+        node* findP(int element);
+        void displayH(node* node, string printed, bool lR);
     public:
         explicit RedBlackTree(int element);
         void buildFromFile(string filePath);
         void remove(int data);
         void add(int data);
-        node* find(int element);
+        bool find(int element);
         void creatRandom(int size);
         void display();
     };
