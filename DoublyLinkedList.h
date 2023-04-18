@@ -13,14 +13,14 @@ namespace std {
     private:
         struct node{
         public:
-            int data = NULL;
-            struct node* next = NULL;
-            struct node* prev = NULL;
+            int data;
+            struct node* next;
+            struct node* prev;
         };
         struct node* headP;
         struct node* tailP;
     public:
-        DoublyLinkedList(int element);
+        DoublyLinkedList();
         void buildFromFile(string filePath);
         void remove(int index);
         void add(int index, int element);

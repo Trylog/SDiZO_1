@@ -9,36 +9,41 @@
 #include "DoublyLinkedList.h"
 
 namespace std {
-    DoublyLinkedList::DoublyLinkedList(int element) {
-
+    DoublyLinkedList::DoublyLinkedList() {
+        tailP=NULL;
+        headP=NULL;
 
     }
 
     void DoublyLinkedList::add(int index, int element) {
-        if(element==0) {
+        if(index==0) {
             if(tailP==NULL) {   //no elements yet
                 headP = static_cast<node *>(malloc(sizeof(struct node)));
                 headP->data = element;
+                headP->next= nullptr;
+                headP->prev= nullptr;
                 tailP = headP;
             } else{
                 node* temp = static_cast<node *>(malloc(sizeof(struct node)));
                 temp->data=element;
                 tailP->prev=temp;
                 temp->next=tailP;
+                temp->prev= nullptr;
                 tailP=temp;
             }
         } else{
             node* tempP=tailP;
             for(auto i = 1; i<=index;++i){
                 if(tempP->next==NULL){
-                    if(i+1==index) {//the last element
+                    if(i==index) {//the last element
                         node* temp = static_cast<node *>(malloc(sizeof(struct node)));
                         temp->data=element;
                         headP->next = temp;
                         temp->prev = headP;
+                        temp->next= nullptr;
                         headP = temp;
                     } else throw -1;
-                    break;
+                    return;
                 }
                 tempP=tempP->next;
             }
@@ -54,17 +59,22 @@ namespace std {
     void DoublyLinkedList::remove(int index) {
 
         node* tempP=tailP;
-        for (auto i = 1; i <= index; ++i) {
+        for (auto i = 0; i < index; ++i) {
             if(tempP->next==NULL)throw -1;
             tempP=tempP->next;
         }
-        if(tempP->next!=NULL)tempP->next->prev=tempP->prev;
-        if(tempP->prev!=NULL)tempP->prev->next=tempP->next;
+        if(index==0){
+            tailP=tempP->next;
+        }else{
+            if(tempP->next!=NULL)tempP->next->prev=tempP->prev;
+            if(tempP->prev!=NULL)tempP->prev->next=tempP->next;
+        }
+        free(tempP);
     }
 
     void DoublyLinkedList::display() {
         node* tempP=tailP;
-        while(tempP->next!=NULL){
+        while(tempP!=NULL){
             cout<<tempP->data<<" ";
             tempP=tempP->next;
         }
@@ -101,7 +111,6 @@ namespace std {
     }
 
     void DoublyLinkedList::creatRandom(int size) {
-        //TODO createRandom - List, change function name
         std::default_random_engine generator;
         std::uniform_int_distribution<int> distribution(0,0xffffffff);
         auto rando = bind(distribution, generator );
@@ -110,7 +119,7 @@ namespace std {
 
     bool DoublyLinkedList::find(int element) {
         node* tempP=tailP;
-        while(tempP->next!=NULL){
+        while(tempP!=NULL){
             if(tempP->data==element) return true;
             tempP=tempP->next;
         }

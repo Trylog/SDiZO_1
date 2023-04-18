@@ -1,6 +1,8 @@
 #include <iostream>
 #include <conio.h>
 #include "Array.h"
+#include "DoublyLinkedList.h"
+#include "RedBlackTree.h"
 
 
 using namespace std;
@@ -9,13 +11,31 @@ void menu();
 
 int main() {
     //menu();
-    Array jeden;
-    jeden.creatRandom(10);
+    /*Array jeden;
+    //jeden.creatRandom(0);
     jeden.display();
-    jeden.add(5,12);
+    /*try {
+        jeden.add(5,12);
+    } catch (int e) {
+        cout<<e;
+    }
+
     jeden.remove(7);
     jeden.display();
-    if (jeden.find(12))cout<<"jest"<<endl;
+    if (jeden.find(12))cout<<"jest"<<endl;*/
+    /*
+    DoublyLinkedList lista;
+    lista.add(0, 1);
+    lista.add(1, 2);
+    lista.add(2, 3);
+    lista.add(3, 4);
+    lista.remove(2);
+    lista.display();
+    cout<<endl<<lista.find(3)<<endl;*/
+    RedBlackTree tree(0);
+    tree.add(1);
+    tree.display();
+
     system("pause");
     return 0;
 }

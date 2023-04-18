@@ -77,13 +77,16 @@ namespace std {
     }
 
     void Array::creatRandom(int size) {
-        free(pointer);
-        if(!(pointer = (int*)malloc(sizeof(int)*size+1)))throw -2; // failed to allocate memory
-        std::default_random_engine generator;
-        std::uniform_int_distribution<int> distribution(0,0xffffffff);
-        auto rando = bind(distribution, generator );
-        for (auto i = 0; i < size; ++i) pointer[i]=rando(); //filling array with random numbers in full int range
-        pointer[size]=NULL;
+        if(size>0){
+            free(pointer);
+            if(!(pointer = (int*)malloc(sizeof(int)*size+1)))throw -2; // failed to allocate memory
+            std::default_random_engine generator;
+            std::uniform_int_distribution<int> distribution(0,0xffffffff);
+            auto rando = bind(distribution, generator );
+            for (auto i = 0; i < size; ++i) pointer[i]=rando(); //filling array with random numbers in full int range
+            pointer[size]=NULL;
+        }else cout<<"Za maly rozmiar tablicy"<<endl;
+
     }
 
 } // std
