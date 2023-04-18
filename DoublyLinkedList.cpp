@@ -78,6 +78,12 @@ namespace std {
             cout<<tempP->data<<" ";
             tempP=tempP->next;
         }
+        cout<<endl;
+        tempP=headP;
+        while(tempP!=NULL){
+            cout<<tempP->data<<" ";
+            tempP=tempP->prev;
+        }
     }
 
     void DoublyLinkedList::buildFromFile(string filePath) {
@@ -93,17 +99,7 @@ namespace std {
                 for (auto i = 0; i < arrayLen; ++i) {
                     if(!input.eof()) {
                         input >> tempIn;
-                        if (tailP == NULL) {   //no elements yet
-                            headP = static_cast<node *>(malloc(sizeof(struct node)));
-                            headP->data=tempIn;
-                            tailP = headP;
-                        } else {
-                            node *temp = static_cast<node *>(malloc(sizeof(struct node)));
-                            temp->data=tempIn;
-                            headP->next = temp;
-                            temp->prev = headP;
-                            headP = temp;
-                        }
+                        add(i, tempIn);
                     } else throw -3; //wrong file length
                 }
             }

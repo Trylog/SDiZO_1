@@ -111,7 +111,7 @@ namespace std {
         element->color=RED;
         //if(data==6)rotateLeft(root);
         //if(data==6)rotateRight(root->left);
-        display();
+        //display();
         addFixup(element);
     }
 
@@ -230,10 +230,11 @@ namespace std {
     }
 
     void RedBlackTree::creatRandom(int size) {
-        std::default_random_engine generator;
+        std::random_device rd;  // Will be used to obtain a seed for the random number engine
+        std::mt19937 gen(rd());
         std::uniform_int_distribution<int> distribution(0,0xffffffff);
-        auto rando = bind(distribution, generator );
-        for (auto i = 0; i < size; ++i) add(rando());
+        //auto rando = bind(distribution, generator );
+        for (auto i = 0; i < size; ++i) add(distribution(rd));
     }
 
      RedBlackTree RedBlackTree::buildFromFile(string filePath) {

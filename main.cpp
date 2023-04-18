@@ -3,6 +3,7 @@
 #include "Array.h"
 #include "DoublyLinkedList.h"
 #include "RedBlackTree.h"
+#include "BinaryHeap.h"
 
 
 using namespace std;
@@ -45,12 +46,24 @@ int main() {
     tree.display();
     tree.remove(-5);
     tree.creatRandom(100);
+    tree.display();*//*
+    RedBlackTree tree(0);
+    tree.creatRandom(100);
     tree.display();*/
-
-    auto a=RedBlackTree::buildFromFile("heap1.txt");
+    /*
+    auto a=RedBlackTree::buildFromFile("bst2.txt");
     a.display();
+    a.remove(15);
+    a.display();*/
+    //menu();
+    /*BinaryHeap a;
+    a.add(0);
+    a.add(1);
+    a.add(2);
+    a.remove(1);
+    a.display();*/
+    menu();
 
-    system("pause");
     return 0;
 }
 
@@ -176,8 +189,13 @@ void menu(){
             }
         }else if(input==ENTER){
             //when "enter" pressed
+            Array a;
+            DoublyLinkedList b;
+            BinaryHeap c;
+            RedBlackTree d(0);
+            int currentState1=0;
             while(true){
-                int currentState1=0;
+                input =0;
                 input=_getch();
                 if(input==224) {
                     input = _getch();
@@ -187,36 +205,201 @@ void menu(){
                         displaySubmenu(currentState1);
                     } else if (input == ARROW_DOWN) {
                         //arrow "down"
-                        if (currentState1 < 3)currentState1++;
+                        if (currentState1 < 5)currentState1++;
                         displaySubmenu(currentState1);
                     }
                 }else if (input==ENTER){
-                    switch (currentState0) {
-                        case 0:
-                            //array
-                            switch (currentState1) {
-                                case 0:
-                                    break;
-                            }
-                            break;
-                        case 1:
-                            //doubly linked list
-
-                            break;
-                        case 2:
-                            //binary heap
-
-                            break;
-                        case 3:
-                            //binary search tree
-                            break;
-                        case 4:
-                            //red-black tree
-                            break;
-                        case 5:
-                            //AVL tree
-                            break;
+                    if(currentState0==0){//array
+                        string temp;
+                        int temp1, temp2;
+                        switch (currentState1) {
+                            case 0://form file
+                                cout<<"Name the file:"<<endl;
+                                temp="";
+                                cin>>temp;
+                                cout<<endl;
+                                a.buildFromFile(temp);
+                                a.display();
+                                break;
+                            case 1://delete
+                                cout<<"Index:"<<endl;
+                                temp1=0;
+                                cin>>temp1;
+                                a.remove(temp1);
+                                a.display();
+                                break;
+                            case 2://add
+                                temp1=0;
+                                temp2=0;
+                                cout<<"Value:"<<endl;
+                                cin>>temp1;
+                                cout<<endl<<"index"<<endl;
+                                cin>>temp2;
+                                a.add(temp2, temp1);
+                                a.display();
+                                break;
+                            case 3://find
+                                cout<<"Value"<<endl;
+                                temp1=0;
+                                cin>>temp1;
+                                if(a.find(temp1)){
+                                    cout<<endl<<"exists"<<endl;
+                                } else cout<<endl<<"does not exists"<<endl;
+                                break;
+                            case 4://random
+                                cout<<"Size of array"<<endl;
+                                temp1=0;
+                                cin>>temp1;
+                                a.creatRandom(temp1);
+                                a.display();
+                                break;
+                            case 5: //display
+                                a.display();
+                                break;
+                        }
+                    } else if(currentState0==1){
+                        string temp;
+                        int temp1, temp2;
+                        switch (currentState1) {
+                            case 0://form file
+                                cout<<"Name the file:"<<endl;
+                                temp="";
+                                cin>>temp;
+                                cout<<endl;
+                                b.buildFromFile(temp);
+                                b.display();
+                                break;
+                            case 1://delete
+                                cout<<"Index:"<<endl;
+                                temp1=0;
+                                cin>>temp1;
+                                b.remove(temp1);
+                                b.display();
+                                break;
+                            case 2://add
+                                temp1=0;
+                                temp2=0;
+                                cout<<"Value:"<<endl;
+                                cin>>temp1;
+                                cout<<endl<<"index"<<endl;
+                                cin>>temp2;
+                                b.add(temp2, temp1);
+                                b.display();
+                                break;
+                            case 3://find
+                                cout<<"Value"<<endl;
+                                temp1=0;
+                                cin>>temp1;
+                                if(b.find(temp1)){
+                                    cout<<endl<<"exists"<<endl;
+                                } else cout<<endl<<"does not exists"<<endl;
+                                break;
+                            case 4://random
+                                cout<<"Size of array"<<endl;
+                                temp1=0;
+                                cin>>temp1;
+                                b.creatRandom(temp1);
+                                b.display();
+                                break;
+                            case 5: //display
+                                b.display();
+                                break;
+                        }
+                    } else if(currentState0==2){
+                        string temp;
+                        int temp1, temp2;
+                        switch (currentState1) {
+                            case 0://form file
+                                cout<<"Name the file:"<<endl;
+                                temp="";
+                                cin>>temp;
+                                cout<<endl;
+                                c.buildFromFile(temp);
+                                c.display();
+                                break;
+                            case 1://delete
+                                cout<<"Index:"<<endl;
+                                temp1=0;
+                                cin>>temp1;
+                                c.remove(temp1);
+                                c.display();
+                                break;
+                            case 2://add
+                                temp1=0;
+                                cout<<"Value:"<<endl;
+                                cin>>temp1;
+                                c.add(temp1);
+                                c.display();
+                                break;
+                            case 3://find
+                                cout<<"Value"<<endl;
+                                temp1=0;
+                                cin>>temp1;
+                                if(c.find(temp1)){
+                                    cout<<endl<<"exists"<<endl;
+                                } else cout<<endl<<"does not exists"<<endl;
+                                break;
+                            case 4://random
+                                cout<<"Size of array"<<endl;
+                                temp1=0;
+                                cin>>temp1;
+                                c.creatRandom(temp1);
+                                c.display();
+                                break;
+                            case 5: //display
+                                c.display();
+                                break;
+                        }
+                    } else if(currentState0==3){
+                        string temp;
+                        int temp1, temp2;
+                        switch (currentState1) {
+                            case 0://form file
+                                cout<<"Name the file:"<<endl;
+                                temp="";
+                                cin>>temp;
+                                cout<<endl;
+                                d=RedBlackTree::buildFromFile(temp);
+                                d.remove(0);
+                                d.display();
+                                break;
+                            case 1://delete
+                                cout<<"Index:"<<endl;
+                                temp1=0;
+                                cin>>temp1;
+                                d.remove(temp1);
+                                d.display();
+                                break;
+                            case 2://add
+                                temp1=0;
+                                temp2=0;
+                                cout<<"Value:"<<endl;
+                                cin>>temp1;
+                                d.add(temp1);
+                                d.display();
+                                break;
+                            case 3://find
+                                cout<<"Value"<<endl;
+                                temp1=0;
+                                cin>>temp1;
+                                if(d.find(temp1)){
+                                    cout<<endl<<"exists"<<endl;
+                                } else cout<<endl<<"does not exists"<<endl;
+                                break;
+                            case 4://random
+                                cout<<"Size of array"<<endl;
+                                temp1=0;
+                                cin>>temp1;
+                                d.creatRandom(temp1);
+                                d.remove(0);
+                                d.display();
+                                break;
+                            case 5: //display
+                                d.display();
+                                break;
+                        }
                     }
+
                 }
             }
         }

@@ -76,7 +76,7 @@ namespace std {
         std::default_random_engine generator;
         std::uniform_int_distribution<int> distribution(0,0xffffffff);
         auto rando = bind(distribution, generator );
-        for (auto i = 0; i < size; ++i) heap[i] = rando(); //filling list with random numbers in full int range
+        for (auto i = 0; i < size; ++i) add(rand()); //filling list with random numbers in full int range
         for(int i = size/2-1;i>=0;--i)heapify(i);
     }
 } // std
