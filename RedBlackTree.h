@@ -31,7 +31,7 @@ namespace std {
         void displayH(node* node, string printed, bool lR);
     public:
         explicit RedBlackTree(int element);
-        void buildFromFile(string filePath);
+        static RedBlackTree buildFromFile(string filePath);
         void remove(int data);
         void add(int data);
         bool find(int element);

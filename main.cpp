@@ -31,10 +31,24 @@ int main() {
     lista.add(3, 4);
     lista.remove(2);
     lista.display();
-    cout<<endl<<lista.find(3)<<endl;*/
-    RedBlackTree tree(0);
-    tree.add(1);
+    cout<<endl<<lista.find(3)<<endl;*//*
+    RedBlackTree tree(2);
+    tree.add(3);
+    tree.add(2);
+    tree.add(0);
+    tree.add(4);
+    tree.add(-5);
+    /*tree.add(1);
+    tree.add(5);
+    tree.add(4);
+    tree.add(6);*//*
     tree.display();
+    tree.remove(-5);
+    tree.creatRandom(100);
+    tree.display();*/
+
+    auto a=RedBlackTree::buildFromFile("heap1.txt");
+    a.display();
 
     system("pause");
     return 0;
@@ -49,9 +63,7 @@ inline void displayMainMenu(int currentState){
                 <<"#1. Array #\n"
                 <<"2. Doubly Linked List \n"
                 <<"3. Binary Heap \n"
-                <<"4. Binary Search Tree \n"
-                <<"5. Red-Black Tree \n"
-                <<"6. AVL Tree \n";
+                <<"4. Red-Black Tree \n";
             break;
         case 1:
             cout<<"######### MENU #########\n"
@@ -59,9 +71,7 @@ inline void displayMainMenu(int currentState){
                 <<"1. Array \n"
                 <<"#2. Doubly Linked List #\n"
                 <<"3. Binary Heap \n"
-                <<"4. Binary Search Tree \n"
-                <<"5. Red-Black Tree \n"
-                <<"6. AVL Tree \n";
+                <<"4. Red-Black Tree \n";
             break;
         case 2:
             cout<<"######### MENU #########\n"
@@ -69,9 +79,7 @@ inline void displayMainMenu(int currentState){
                 <<"1. Array \n"
                 <<"2. Doubly Linked List \n"
                 <<"#3. Binary Heap #\n"
-                <<"4. Binary Search Tree \n"
-                <<"5. Red-Black Tree \n"
-                <<"6. AVL Tree \n";
+                <<"4. Red-Black Tree \n";
             break;
         case 3:
             cout<<"######### MENU #########\n"
@@ -79,29 +87,7 @@ inline void displayMainMenu(int currentState){
                 <<"1. Array \n"
                 <<"2. Doubly Linked List \n"
                 <<"3. Binary Heap \n"
-                <<"#4. Binary Search Tree #\n"
-                <<"5. Red-Black Tree \n"
-                <<"6. AVL Tree \n";
-            break;
-        case 4:
-            cout<<"######### MENU #########\n"
-                <<"Select structure: \n"
-                <<"1. Array \n"
-                <<"2. Doubly Linked List \n"
-                <<"3. Binary Heap \n"
-                <<"4. Binary Search Tree \n"
-                <<"#5. Red-Black Tree #\n"
-                <<"6. AVL Tree \n";
-            break;
-        case 5:
-            cout<<"######### MENU #########\n"
-                <<"Select structure: \n"
-                <<"1. Array \n"
-                <<"2. Doubly Linked List \n"
-                <<"3. Binary Heap \n"
-                <<"4. Binary Search Tree \n"
-                <<"5. Red-Black Tree \n"
-                <<"#6. AVL Tree #\n";
+                <<"#4. Red-Black Tree #\n";
             break;
     }
 }
@@ -164,9 +150,7 @@ inline void displaySubmenu(int currentState) {
             break;
     }
 }
-inline void displaySubmenuBST(int currentState) {
 
-}
 
 #define ARROW_UP 72
 #define ARROW_DOWN 80
@@ -187,7 +171,7 @@ void menu(){
                 displayMainMenu(currentState0);
             } else if (input == ARROW_DOWN) {
                 //arrow "down"
-                if (currentState0 < 5)currentState0++;
+                if (currentState0 < 3)currentState0++;
                 displayMainMenu(currentState0);
             }
         }else if(input==ENTER){
@@ -200,13 +184,11 @@ void menu(){
                     if (input == ARROW_UP) {
                         //arrow "up"
                         if (currentState1 > 0)currentState1--;
-                        if(currentState0!=3){displaySubmenu(currentState1);}
-                        else { displaySubmenuBST(currentState1);}
+                        displaySubmenu(currentState1);
                     } else if (input == ARROW_DOWN) {
                         //arrow "down"
-                        if (currentState1 < 5)currentState1++;
-                        if(currentState0!=3){displaySubmenu(currentState1);}
-                        else { displaySubmenuBST(currentState1);}
+                        if (currentState1 < 3)currentState1++;
+                        displaySubmenu(currentState1);
                     }
                 }else if (input==ENTER){
                     switch (currentState0) {

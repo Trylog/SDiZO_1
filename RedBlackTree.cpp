@@ -17,6 +17,9 @@ namespace std {
         root=static_cast<node *>(malloc(sizeof(struct node)));
         root->parent=pNil;
         root->data=element;
+        root->color=BLACK;
+        root->right=pNil;
+        root->left=pNil;
     }
 
     void RedBlackTree::rotateLeft(RedBlackTree::node *element) {
@@ -63,7 +66,7 @@ namespace std {
                     }
                     element->parent->color=BLACK;
                     element->parent->parent->color=RED;
-                    rotateRight(element->parent->parent);
+                    rotateRight(element->parent->parent->left);
                 }
             }else{
                 auto uncle=element->parent->parent->left;
@@ -75,11 +78,11 @@ namespace std {
                 }else {
                     if (element == element->parent->left) {
                         element = element->parent;
-                        rotateLeft(element);
+                        rotateRight(element->left);
                     }
                     element->parent->color=BLACK;
                     element->parent->parent->color=RED;
-                    rotateRight(element->parent->parent);
+                    rotateLeft(element->parent->parent);
                 }
             }
         }
@@ -90,6 +93,7 @@ namespace std {
         auto element=static_cast<node *>(malloc(sizeof(struct node)));
         auto x=root;
         auto y=pNil;
+        element->data=data;
         while (x!=pNil){
             y=x;
             if (element->data < x->data){
@@ -105,7 +109,9 @@ namespace std {
         element->left=pNil;
         element->right=pNil;
         element->color=RED;
-        element->data=data;
+        //if(data==6)rotateLeft(root);
+        //if(data==6)rotateRight(root->left);
+        display();
         addFixup(element);
     }
 
@@ -230,7 +236,7 @@ namespace std {
         for (auto i = 0; i < size; ++i) add(rando());
     }
 
-    void RedBlackTree::buildFromFile(string filePath) {
+     RedBlackTree RedBlackTree::buildFromFile(string filePath) {
         fstream input;
         input.open(filePath, ios::in);
         if(input.good()) {
@@ -238,12 +244,15 @@ namespace std {
             input >> size;
             if (size) {
                 int tempIn;
-                for (auto i = 0; i < size; ++i) {
+                input>>tempIn;
+                RedBlackTree tree1(tempIn);
+                for (auto i = 1; i < size; ++i) {
                     if (!input.eof()) {
                         input >> tempIn;
-                        add(tempIn);
+                        tree1.add(tempIn);
                     } else throw -3; //wrong file length
                 }
+                return tree1;
             }
         }
     }
@@ -252,13 +261,13 @@ namespace std {
         if(node!=pNil){
             cout<<printed;
             if(lR){
-                cout<<"R---";
-                printed+="  ";
+                cout<<"R--- ";
+                printed+="   ";
             } else{
-                cout<<"L---";
-                printed+="| ";
+                cout<<"L--- ";
+                printed+="|  ";
             }
-            cout<<root->data<<"[" <<(root->color ? "RED" : "BLACK")<<"]"<<endl;
+            cout<<node->data<<"[" <<(node->color ? "RED" : "BLACK")<<"]"<<endl;
             displayH(node->left, printed, false);
             displayH(node->right, printed, true);
         }
