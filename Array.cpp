@@ -4,10 +4,8 @@
 
 #include <iostream>
 #include <cstdlib>
-#include <ctime>
 #include <fstream>
 #include <random>
-#include <functional>
 #include "Array.h"
 
 namespace std {
@@ -80,10 +78,11 @@ namespace std {
         if(size>0){
             free(pointer);
             if(!(pointer = (int*)malloc(sizeof(int)*size+1)))throw -2; // failed to allocate memory
-            std::default_random_engine generator;
+            //std::default_random_engine generator;
+            std::random_device rd;
             std::uniform_int_distribution<int> distribution(0,0xffffffff);
-            auto rando = bind(distribution, generator );
-            for (auto i = 0; i < size; ++i) pointer[i]=rando(); //filling array with random numbers in full int range
+            //auto rando = bind(distribution, generator );
+            for (auto i = 0; i < size; ++i) pointer[i]=distribution(rd); //filling array with random numbers in full int range
             pointer[size]=NULL;
         }else cout<<"Za maly rozmiar tablicy"<<endl;
 

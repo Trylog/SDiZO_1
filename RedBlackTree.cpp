@@ -3,7 +3,6 @@
 //
 
 #include <random>
-#include <functional>
 #include <fstream>
 #include <iostream>
 #include "RedBlackTree.h"
@@ -244,10 +243,9 @@ namespace std {
     }
 
     void RedBlackTree::creatRandom(int size) {
-        std::default_random_engine generator;
         std::uniform_int_distribution<int> distribution(0,0xffffffff);
-        auto rando = bind(distribution, generator );
-        for (auto i = 0; i < size; ++i) add(rando());
+        std::random_device rd;
+        for (auto i = 0; i < size; ++i) add(distribution(rd));
     }
 
      void RedBlackTree::buildFromFile(string filePath) {

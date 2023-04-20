@@ -55,7 +55,7 @@ int main() {
     a.display();
     a.remove(15);
     a.display();*/
-    //menu();
+    menu();
     /*BinaryHeap a;
     a.add(0);
     a.add(1);
@@ -92,7 +92,7 @@ int main() {
     //a.remove(0);
     //a.display();
 
-    BinaryHeap a;
+    //BinaryHeap a;
     /*a.add(10);
     a.display();
     a.remove(0);

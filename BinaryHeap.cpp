@@ -5,7 +5,6 @@
 #include <iostream>
 #include <fstream>
 #include <random>
-#include <functional>
 #include "BinaryHeap.h"
 
 namespace std {
@@ -82,10 +81,9 @@ namespace std {
     }
 
     void BinaryHeap::creatRandom(int sizeI) {
-        std::default_random_engine generator;
         std::uniform_int_distribution<int> distribution(0,0xffffffff);
-        auto rando = bind(distribution, generator );
-        for (auto i = 0; i < sizeI; ++i) add(rand()); //filling list with random numbers in full int range
+        std::random_device rd;
+        for (auto i = 0; i < sizeI; ++i) add(distribution(rd)); //filling list with random numbers in full int range
         for(int i = sizeI/2-1;i>=0;--i)heapify(i);
     }
 } // std

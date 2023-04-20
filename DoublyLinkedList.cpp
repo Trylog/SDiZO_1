@@ -5,7 +5,6 @@
 #include <iostream>
 #include <fstream>
 #include <random>
-#include <functional>
 #include "DoublyLinkedList.h"
 
 namespace std {
@@ -118,10 +117,9 @@ namespace std {
     }
 
     void DoublyLinkedList::creatRandom(int size) {
-        std::default_random_engine generator;
         std::uniform_int_distribution<int> distribution(0,0xffffffff);
-        auto rando = bind(distribution, generator );
-        for (auto i = 0; i < size; ++i) add(i, rando()); //filling list with random numbers in full int range
+        std::random_device rd;
+        for (auto i = 0; i < size; ++i) add(i, distribution(rd)); //filling list with random numbers in full int range
     }
 
     bool DoublyLinkedList::find(int element) {
