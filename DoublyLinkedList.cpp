@@ -33,6 +33,7 @@ namespace std {
             }
         } else{
             node* tempP=tailP;
+            if(tempP== nullptr){cout<<"### LIST IS EMPTY - INDEX OUT OF BOUNDS ###"<<endl;return;}
             for(auto i = 1; i<=index;++i){
                 if(tempP->next==NULL){
                     if(i==index) {//the last element
@@ -42,7 +43,7 @@ namespace std {
                         temp->prev = headP;
                         temp->next= nullptr;
                         headP = temp;
-                    } else throw -1;
+                    } else cout<<endl<<"### INDEX OUT OF BOUNDS ###"<<endl;
                     return;
                 }
                 tempP=tempP->next;
@@ -56,34 +57,44 @@ namespace std {
         }
     }
 
-    void DoublyLinkedList::remove(int index) {
-
-        node* tempP=tailP;
-        for (auto i = 0; i < index; ++i) {
-            if(tempP->next==NULL)throw -1;
-            tempP=tempP->next;
-        }
-        if(index==0){
-            tailP=tempP->next;
-        }else{
-            if(tempP->next!=NULL)tempP->next->prev=tempP->prev;
-            if(tempP->prev!=NULL)tempP->prev->next=tempP->next;
-        }
-        free(tempP);
+    void DoublyLinkedList::remove(int element) {
+        if(tailP!= nullptr) {
+            node *tempP = tailP;
+            /*for (auto i = 0; i < index; ++i) {
+                if(tempP->next==NULL)throw -1;
+                tempP=tempP->next;
+            }*/
+            int a = 0;
+            while (tempP->data != element) {
+                a++;
+                if (tempP->next == NULL){cout<<endl<<"### THIS ELEMENT DOES NOT EXIST ###"<<endl;return;};
+                tempP = tempP->next;
+            }
+            if (a == 0) {
+                tailP = tempP->next;
+            } else if (tempP->next== nullptr){
+                headP = tempP->prev;
+            }
+            if (tempP->next != NULL)tempP->next->prev = tempP->prev;
+            if (tempP->prev != NULL)tempP->prev->next = tempP->next;
+            free(tempP);
+        }else cout<<endl<<"### LIST EMPTY ###"<<endl;
     }
 
     void DoublyLinkedList::display() {
         node* tempP=tailP;
+        cout<<"From tail to head:"<<endl;
         while(tempP!=NULL){
             cout<<tempP->data<<" ";
             tempP=tempP->next;
         }
-        cout<<endl;
+        cout<<endl<<endl<<"From head to tail:"<<endl;
         tempP=headP;
         while(tempP!=NULL){
             cout<<tempP->data<<" ";
             tempP=tempP->prev;
         }
+        cout<<endl;
     }
 
     void DoublyLinkedList::buildFromFile(string filePath) {

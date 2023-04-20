@@ -4,7 +4,7 @@
 #include "DoublyLinkedList.h"
 #include "RedBlackTree.h"
 #include "BinaryHeap.h"
-
+#include <chrono>
 
 using namespace std;
 
@@ -62,8 +62,67 @@ int main() {
     a.add(2);
     a.remove(1);
     a.display();*/
-    menu();
+    /*DoublyLinkedList a;
+    a.buildFromFile("tab1.txt");
+    a.display();
+    a.remove(2);
+    a.display();*/
+    //menu();
 
+    //RedBlackTree a;
+    //a.buildFromFile("bst2.txt");
+    //auto t1 = std::chrono::high_resolution_clock::now();
+    /*for (int i = 0; i <400000 ; ++i) {
+        a.add(i);
+    }*/
+    //auto t2 = std::chrono::high_resolution_clock::now();
+    //a.remove(15);
+   // a.remove(0);
+    //a.buildFromFile("bst2.txt");
+
+    //a.display();
+
+    //auto time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
+    //a.display();
+    //cout<<time_span.count();
+
+    //DoublyLinkedList a;
+    //a.add(1,12);
+    //a.display();
+    //a.remove(0);
+    //a.display();
+
+    BinaryHeap a;
+    /*a.add(10);
+    a.display();
+    a.remove(0);
+    a.add(15);
+    a.add(232);
+    a.display();
+    a.buildFromFile("heap2.txt");
+    a.display();
+    a.remove(8);
+    a.display();
+    a.remove(5);
+    a.display();
+    a.remove(6);
+    a.remove(4);
+    a.display();
+    a.remove(4);
+    a.display();
+    a.remove(3);
+    a.display();
+    a.remove(3);
+    a.display();
+    a.remove(4);
+    a.display();
+    a.remove(2);
+    a.display();
+    a.remove(0);
+    a.display();
+*/
+
+    system("pause");
     return 0;
 }
 
@@ -192,8 +251,9 @@ void menu(){
             Array a;
             DoublyLinkedList b;
             BinaryHeap c;
-            RedBlackTree d(0);
+            RedBlackTree d;
             int currentState1=0;
+            displaySubmenu(currentState1);
             while(true){
                 input =0;
                 input=_getch();
@@ -257,7 +317,7 @@ void menu(){
                                 a.display();
                                 break;
                         }
-                    } else if(currentState0==1){
+                    } else if(currentState0==1){//DoublyLinkedList
                         string temp;
                         int temp1, temp2;
                         switch (currentState1) {
@@ -270,7 +330,7 @@ void menu(){
                                 b.display();
                                 break;
                             case 1://delete
-                                cout<<"Index:"<<endl;
+                                cout<<"Value:"<<endl;
                                 temp1=0;
                                 cin>>temp1;
                                 b.remove(temp1);
@@ -295,7 +355,7 @@ void menu(){
                                 } else cout<<endl<<"does not exists"<<endl;
                                 break;
                             case 4://random
-                                cout<<"Size of array"<<endl;
+                                cout<<"Size of List"<<endl;
                                 temp1=0;
                                 cin>>temp1;
                                 b.creatRandom(temp1);
@@ -350,7 +410,7 @@ void menu(){
                                 c.display();
                                 break;
                         }
-                    } else if(currentState0==3){
+                    } else if(currentState0==3){//RED_BLACK_TREE
                         string temp;
                         int temp1, temp2;
                         switch (currentState1) {
@@ -359,8 +419,7 @@ void menu(){
                                 temp="";
                                 cin>>temp;
                                 cout<<endl;
-                                d=RedBlackTree::buildFromFile(temp);
-                                d.remove(0);
+                                d.buildFromFile(temp);
                                 d.display();
                                 break;
                             case 1://delete
@@ -387,11 +446,10 @@ void menu(){
                                 } else cout<<endl<<"does not exists"<<endl;
                                 break;
                             case 4://random
-                                cout<<"Size of array"<<endl;
+                                cout<<"Size of the tree"<<endl;
                                 temp1=0;
                                 cin>>temp1;
                                 d.creatRandom(temp1);
-                                d.remove(0);
                                 d.display();
                                 break;
                             case 5: //display

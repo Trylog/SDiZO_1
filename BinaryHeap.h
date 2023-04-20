@@ -25,7 +25,7 @@ namespace std {
         void remove(int index);
         void add(int element);
         bool find(int element);
-        void creatRandom(int size);
+        void creatRandom(int sizeI);
         void display();
     };
 

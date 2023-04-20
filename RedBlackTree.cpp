@@ -11,15 +11,16 @@
 #define BLACK 0
 
 namespace std {
-    RedBlackTree::RedBlackTree(int element) {
+    RedBlackTree::RedBlackTree() {
         nil.color=BLACK;
         pNil=&nil;
+        root= nullptr;/*
         root=static_cast<node *>(malloc(sizeof(struct node)));
         root->parent=pNil;
-        root->data=element;
+        root->data=NULL;
         root->color=BLACK;
         root->right=pNil;
-        root->left=pNil;
+        root->left=pNil;*/
     }
 
     void RedBlackTree::rotateLeft(RedBlackTree::node *element) {
@@ -90,6 +91,15 @@ namespace std {
     }
 
     void RedBlackTree::add(int data) {
+        if(root==NULL){
+            root=static_cast<node *>(malloc(sizeof(struct node)));
+            root->data=data;
+            root->parent=pNil;
+            root->color=BLACK;
+            root->left=pNil;
+            root->right=pNil;
+            return;
+        }
         auto element=static_cast<node *>(malloc(sizeof(struct node)));
         auto x=root;
         auto y=pNil;
@@ -137,39 +147,43 @@ namespace std {
                 if (brother->left->color==BLACK && brother->right->color==BLACK){
                     brother->color=RED;
                     element=element->parent;
-                }else if (brother->right->color==BLACK){
-                    brother->left->color=BLACK;
-                    brother->color=RED;
-                    rotateRight(brother);
-                    brother=element->parent->right;
+                }else {
+                    if (brother->right->color == BLACK) {
+                        brother->left->color = BLACK;
+                        brother->color = RED;
+                        rotateRight(brother);
+                        brother = element->parent->right;
+                    }
+                    brother->color = element->parent->color;
+                    element->parent->color = BLACK;
+                    brother->right->color = BLACK;
+                    rotateLeft(element->parent);
+                    element = root;
                 }
-                brother->color=element->parent->color;
-                element->parent->color=BLACK;
-                brother->right->color=BLACK;
-                rotateLeft(element->parent);
-                element=root;
             }else{
                 auto brother = element->parent->left;
                 if (brother->color==RED){
                     brother->color=BLACK;
                     element->parent->color=RED;
-                    rotateLeft(element->parent);
+                    rotateRight(element->parent);
                     brother=element->parent->left;
                 }
                 if (brother->right->color==BLACK && brother->left->color==BLACK){
                     brother->color=RED;
                     element=element->parent;
-                }else if (brother->left->color==BLACK){
-                    brother->right->color=BLACK;
-                    brother->color=RED;
-                    rotateRight(brother);
-                    brother=element->parent->left;
+                }else {
+                    if (brother->left->color == BLACK) {
+                        brother->right->color = BLACK;
+                        brother->color = RED;
+                        rotateLeft(brother);
+                        brother = element->parent->left;
+                    }
+                    brother->color = element->parent->color;
+                    element->parent->color = BLACK;
+                    brother->left->color = BLACK;
+                    rotateRight(element->parent);
+                    element = root;
                 }
-                brother->color=element->parent->color;
-                element->parent->color=BLACK;
-                brother->left->color=BLACK;
-                rotateLeft(element->parent);
-                element=root;
             }
         }
         element->color=BLACK;
@@ -230,14 +244,13 @@ namespace std {
     }
 
     void RedBlackTree::creatRandom(int size) {
-        std::random_device rd;  // Will be used to obtain a seed for the random number engine
-        std::mt19937 gen(rd());
+        std::default_random_engine generator;
         std::uniform_int_distribution<int> distribution(0,0xffffffff);
-        //auto rando = bind(distribution, generator );
-        for (auto i = 0; i < size; ++i) add(distribution(rd));
+        auto rando = bind(distribution, generator );
+        for (auto i = 0; i < size; ++i) add(rando());
     }
 
-     RedBlackTree RedBlackTree::buildFromFile(string filePath) {
+     void RedBlackTree::buildFromFile(string filePath) {
         fstream input;
         input.open(filePath, ios::in);
         if(input.good()) {
@@ -245,15 +258,12 @@ namespace std {
             input >> size;
             if (size) {
                 int tempIn;
-                input>>tempIn;
-                RedBlackTree tree1(tempIn);
-                for (auto i = 1; i < size; ++i) {
+                for (auto i = 0; i < size; ++i) {
                     if (!input.eof()) {
                         input >> tempIn;
-                        tree1.add(tempIn);
+                        add(tempIn);
                     } else throw -3; //wrong file length
                 }
-                return tree1;
             }
         }
     }
@@ -276,6 +286,7 @@ namespace std {
 
     void RedBlackTree::display() {
         if (root) displayH(root, "", true);
+        cout<<endl;
     }
 
 } // std

@@ -19,7 +19,7 @@ namespace std {
     void Array::add(int index, int element) {
         auto arrayLen=0;
         for(;pointer[arrayLen] != NULL; ++arrayLen);
-        if(index<0||index>=arrayLen+1)throw -1; //wrong index
+        if(index<0||index>=arrayLen+1)cout<<endl<<"### WRONG INDEX ###"<<endl; //wrong index
         int* tempPointer=NULL;
         tempPointer = (int*)malloc(sizeof(int) * (arrayLen + 2));
         if (tempPointer){
@@ -37,7 +37,7 @@ namespace std {
         if(arrayLen>0 && index>=0 && index<=arrayLen){
             for(auto i = index; i<arrayLen;++i) pointer[i] = pointer[i+1];
             pointer = (int*) realloc(pointer, sizeof(int) * arrayLen);
-        } else throw -1; //wrong index
+        } else cout<<endl<<"### WRONG INDEX ###"<<endl; //wrong index
     }
 
     void Array::display() {

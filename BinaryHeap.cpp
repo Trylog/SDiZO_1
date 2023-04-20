@@ -11,6 +11,7 @@
 namespace std {
     BinaryHeap::BinaryHeap() {
         if(!(heap = (int*)malloc(sizeof(int)*1000)))throw -2; //trying to allocate array
+        size=0;
     }
     inline void BinaryHeap::swap(int* a, int* b)
     {
@@ -35,19 +36,26 @@ namespace std {
     }
     void BinaryHeap::add(int element) {
         heap[size]=element;
-        for(int i = size; heap[((i+1)/2)-1]>heap[i]&&i!=0;i=((i+1)/2)-1) swap(&heap[i],&heap[((i+1)/2)-1]);
+        for(int i = size; heap[(i-1)/2]<heap[i]&&i!=0;i=(i-1)/2) {
+            swap(&heap[i], &heap[(i-1)/2]);
+        }
         size++;
     }
 
     void BinaryHeap::remove(int index) {
-        swap(&heap[index], &heap[size-1]);
-        heapify(index);
-        size--;
+        if(index<size&&index>=0){
+            swap(&heap[index], &heap[size-1]);
+            size--;
+            heapify(index);
+        } else {cout<<"### WRONG INDEX ###"<<endl; return;}
+
+
     }
 
     void BinaryHeap::display() {
 
         for(auto i = 0; i < size; ++i)cout<<heap[i]<<" "; //displaying array form
+        cout<<endl;
     }
 
     bool BinaryHeap::find(int element) {
@@ -59,24 +67,25 @@ namespace std {
         fstream input;
         input.open(filePath, ios::in);
         if(input.good()) {
-            input >> size;
-            if (size) {
-                //int tempIn;
-                for (auto i = 0; i < size; ++i) {
+            int tempSize=0;
+            input >> tempSize;
+            if (tempSize) {
+                int tempIn;
+                for (auto i = 0; i < tempSize; ++i) {
                     if (!input.eof()) {
-                        input >> heap[i];
+                        input >> tempIn;
+                        add(tempIn);
                     } else throw -3; //wrong file length
                 }
             }
         }
-        heapify(0);
     }
 
-    void BinaryHeap::creatRandom(int size) {
+    void BinaryHeap::creatRandom(int sizeI) {
         std::default_random_engine generator;
         std::uniform_int_distribution<int> distribution(0,0xffffffff);
         auto rando = bind(distribution, generator );
-        for (auto i = 0; i < size; ++i) add(rand()); //filling list with random numbers in full int range
-        for(int i = size/2-1;i>=0;--i)heapify(i);
+        for (auto i = 0; i < sizeI; ++i) add(rand()); //filling list with random numbers in full int range
+        for(int i = sizeI/2-1;i>=0;--i)heapify(i);
     }
 } // std

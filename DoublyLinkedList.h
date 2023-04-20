@@ -22,7 +22,7 @@ namespace std {
     public:
         DoublyLinkedList();
         void buildFromFile(string filePath);
-        void remove(int index);
+        void remove(int element);
         void add(int index, int element);
         bool find(int element);
         void creatRandom(int size);
