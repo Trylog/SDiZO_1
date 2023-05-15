@@ -32,7 +32,7 @@ namespace std {
             }
         } else{
             node* tempP=tailP;
-            if(tempP== nullptr){cout<<"### LIST IS EMPTY - INDEX OUT OF BOUNDS ###"<<endl;return;}
+            //if(tempP== nullptr){cout<<"### LIST IS EMPTY - INDEX OUT OF BOUNDS ###"<<endl;return;}
             for(auto i = 1; i<=index;++i){
                 if(tempP->next==NULL){
                     if(i==index) {//the last element
@@ -66,16 +66,17 @@ namespace std {
             int a = 0;
             while (tempP->data != element) {
                 a++;
-                if (tempP->next == NULL){cout<<endl<<"### THIS ELEMENT DOES NOT EXIST ###"<<endl;return;};
+                if (tempP->next == nullptr){cout<<endl<<"### THIS ELEMENT DOES NOT EXIST ###"<<endl;return;};
                 tempP = tempP->next;
             }
-            if (a == 0) {
-                tailP = tempP->next;
-            } else if (tempP->next== nullptr){
-                headP = tempP->prev;
-            }
-            if (tempP->next != NULL)tempP->next->prev = tempP->prev;
-            if (tempP->prev != NULL)tempP->prev->next = tempP->next;
+
+            if (tempP->next != nullptr) {
+                tempP->next->prev = tempP->prev;
+            }else headP = tempP->prev;
+            if (tempP->prev != nullptr){
+                tempP->prev->next = tempP->next;
+            }else tailP = tempP->next;
+
             free(tempP);
         }else cout<<endl<<"### LIST EMPTY ###"<<endl;
     }

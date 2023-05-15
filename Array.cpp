@@ -54,7 +54,7 @@ namespace std {
             input>>arrayLen;
             if(arrayLen){
                 free(pointer);
-                if(!(pointer = (int*)malloc(sizeof(int)*arrayLen))) throw -2; //failed to allocate memory
+                if(!(pointer = (int*)malloc(sizeof(int)*arrayLen+1))) throw -2; //failed to allocate memory
                 for (auto i = 0; i < arrayLen; ++i){
                     if(!input.eof()){
                         int temp=0;
@@ -63,6 +63,7 @@ namespace std {
                         pointer[i]=temp;
                     }else throw -3; //wrong file length
                 }
+                pointer[arrayLen]=NULL;
             }
         }
     }

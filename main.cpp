@@ -5,123 +5,327 @@
 #include "RedBlackTree.h"
 #include "BinaryHeap.h"
 #include <chrono>
+#include <random>
 
 using namespace std;
 
 void menu();
 
-int main() {
-    //menu();
-    /*Array jeden;
-    //jeden.creatRandom(0);
-    jeden.display();
-    /*try {
-        jeden.add(5,12);
-    } catch (int e) {
-        cout<<e;
+void testRBT(int number) {
+    RedBlackTree a;
+    cout<<number<<": "<<endl;
+    std::random_device rd;
+    std::uniform_int_distribution<int> distribution(0, 0xffffffff);
+    auto t1 = std::chrono::high_resolution_clock::now();
+    auto t2 = std::chrono::high_resolution_clock::now();
+    auto t4 = std::chrono::high_resolution_clock::now();
+    auto t3 = std::chrono::high_resolution_clock::now();
+
+    srand(0);
+    double k = 0.0, m = 0.0, n = 0.0;
+    for (int j = 0; j < 100; ++j) {
+        int l[number];
+        for (int i = 0; i < number; ++i) {
+            l[i] = distribution(rd);
+        }
+        t1 = std::chrono::high_resolution_clock::now();
+        for (int i = 0; i < number; ++i) {
+            a.add(l[i]);
+        }
+        t2 = std::chrono::high_resolution_clock::now();
+        for (int i = 0; i < number; ++i) {
+            a.find(rand() % number);
+        }
+        t3 = std::chrono::high_resolution_clock::now();
+        for (int i = 0; i < number; ++i) {
+            a.remove(a.root->data);
+        }
+        t4 = std::chrono::high_resolution_clock::now();
+        auto time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
+        auto time_span1 = std::chrono::duration_cast<std::chrono::duration<double>>(t3 - t2);
+        auto time_span2 = std::chrono::duration_cast<std::chrono::duration<double>>(t4 - t3);
+        k += time_span.count();
+        n += time_span1.count();
+        m += time_span2.count();
     }
+    cout << k << endl << m << endl << n << endl << endl;
+}
 
-    jeden.remove(7);
-    jeden.display();
-    if (jeden.find(12))cout<<"jest"<<endl;*/
-    /*
-    DoublyLinkedList lista;
-    lista.add(0, 1);
-    lista.add(1, 2);
-    lista.add(2, 3);
-    lista.add(3, 4);
-    lista.remove(2);
-    lista.display();
-    cout<<endl<<lista.find(3)<<endl;*//*
-    RedBlackTree tree(2);
-    tree.add(3);
-    tree.add(2);
-    tree.add(0);
-    tree.add(4);
-    tree.add(-5);
-    /*tree.add(1);
-    tree.add(5);
-    tree.add(4);
-    tree.add(6);*//*
-    tree.display();
-    tree.remove(-5);
-    tree.creatRandom(100);
-    tree.display();*//*
-    RedBlackTree tree(0);
-    tree.creatRandom(100);
-    tree.display();*/
-    /*
-    auto a=RedBlackTree::buildFromFile("bst2.txt");
-    a.display();
-    a.remove(15);
-    a.display();*/
-    menu();
-    /*BinaryHeap a;
-    a.add(0);
-    a.add(1);
-    a.add(2);
-    a.remove(1);
-    a.display();*/
-    /*DoublyLinkedList a;
-    a.buildFromFile("tab1.txt");
-    a.display();
-    a.remove(2);
-    a.display();*/
+void testDLL(int number) {
+    DoublyLinkedList a;
+    cout<<number<<": "<<endl;
+    std::random_device rd;
+    std::uniform_int_distribution<int> distribution(0, 0xffffffff);
+    auto t1 = std::chrono::high_resolution_clock::now();
+    auto t2 = std::chrono::high_resolution_clock::now();
+    auto t4 = std::chrono::high_resolution_clock::now();
+    auto t3 = std::chrono::high_resolution_clock::now();
+
+    srand(0);
+    double k = 0.0, m = 0.0, n = 0.0;
+    for (int j = 0; j < 20; ++j) {
+        int l[number];
+        for (int i = 0; i < number; ++i) {
+            l[i] = distribution(rd);
+        }
+        t1 = std::chrono::high_resolution_clock::now();
+        for (int i = 0; i < number; ++i) {
+            a.add(0, l[i]);
+        }
+        t2 = std::chrono::high_resolution_clock::now();
+        for (int i = 0; i < number; ++i) {
+            a.find(rand() % number);
+        }
+        t3 = std::chrono::high_resolution_clock::now();
+        for (int i = 0; i < number; ++i) {
+            a.remove(a.tailP->data);
+        }
+        t4 = std::chrono::high_resolution_clock::now();
+        auto time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
+        auto time_span1 = std::chrono::duration_cast<std::chrono::duration<double>>(t3 - t2);
+        auto time_span2 = std::chrono::duration_cast<std::chrono::duration<double>>(t4 - t3);
+        k += time_span.count();
+        n += time_span1.count();
+        m += time_span2.count();
+    }
+    cout << k << endl << m << endl << n << endl << endl;
+    k = 0.0; m = 0.0; n = 0.0;
+    DoublyLinkedList b;
+    for (int j = 0; j < 20; ++j) {
+        int l[number];
+        for (int i = 0; i < number; ++i) {
+            l[i] = distribution(rd);
+        }
+        t1 = std::chrono::high_resolution_clock::now();
+        for (int i = 0; i < number; ++i) {
+            b.add(i, l[i]);
+        }
+        t2 = std::chrono::high_resolution_clock::now();
+        for (int i = 0; i < number; ++i) {
+            b.find(rand() % number);
+        }
+        t3 = std::chrono::high_resolution_clock::now();
+        for (int i = 0; i < number; ++i) {
+            b.remove(b.headP->data);
+        }
+        t4 = std::chrono::high_resolution_clock::now();
+        auto time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
+        auto time_span1 = std::chrono::duration_cast<std::chrono::duration<double>>(t3 - t2);
+        auto time_span2 = std::chrono::duration_cast<std::chrono::duration<double>>(t4 - t3);
+        k += time_span.count();
+        n += time_span1.count();
+        m += time_span2.count();
+    }
+    cout << k << endl << m << endl << n << endl << endl;
+    k = 0.0; m = 0.0; n = 0.0;
+    DoublyLinkedList c;
+    for (int j = 0; j < 20; ++j) {
+        int l[number];
+        for (int i = 0; i < number; ++i) {
+            l[i] = distribution(rd);
+        }
+        t1 = std::chrono::high_resolution_clock::now();
+        for (int i = 0; i < number; ++i) {
+            c.add(i>0 ? rand()%i : 0, l[i]);
+        }
+        t2 = std::chrono::high_resolution_clock::now();
+        for (int i = 0; i < number; ++i) {
+            c.find(rand() % number);
+        }
+        t3 = std::chrono::high_resolution_clock::now();
+        for (int i = 0; i < number; ++i) {
+            c.remove(l[i]);
+        }
+        t4 = std::chrono::high_resolution_clock::now();
+        auto time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
+        auto time_span1 = std::chrono::duration_cast<std::chrono::duration<double>>(t3 - t2);
+        auto time_span2 = std::chrono::duration_cast<std::chrono::duration<double>>(t4 - t3);
+        k += time_span.count();
+        n += time_span1.count();
+        m += time_span2.count();
+    }
+    cout << k << endl << m << endl << n << endl << endl;
+    k = 0.0; m = 0.0; n = 0.0;
+}
+
+void testA(int number) {
+    Array a;
+    cout<<number<<": "<<endl;
+    std::random_device rd;
+    std::uniform_int_distribution<int> distribution(0, 0xffffffff);
+    auto t1 = std::chrono::high_resolution_clock::now();
+    auto t2 = std::chrono::high_resolution_clock::now();
+    auto t4 = std::chrono::high_resolution_clock::now();
+    auto t3 = std::chrono::high_resolution_clock::now();
+
+    srand(0);
+    double k = 0.0, m = 0.0, n = 0.0;
+    for (int j = 0; j < 20; ++j) {
+        int l[number];
+        for (int i = 0; i < number; ++i) {
+            l[i] = distribution(rd);
+        }
+        t1 = std::chrono::high_resolution_clock::now();
+        for (int i = 0; i < number; ++i) {
+            a.add(0, l[i]);
+        }
+        t2 = std::chrono::high_resolution_clock::now();
+        for (int i = 0; i < number; ++i) {
+            a.find(rand() % number);
+        }
+        t3 = std::chrono::high_resolution_clock::now();
+        for (int i = 0; i < number; ++i) {
+            a.remove(0);
+        }
+        t4 = std::chrono::high_resolution_clock::now();
+        auto time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
+        auto time_span1 = std::chrono::duration_cast<std::chrono::duration<double>>(t3 - t2);
+        auto time_span2 = std::chrono::duration_cast<std::chrono::duration<double>>(t4 - t3);
+        k += time_span.count();
+        n += time_span1.count();
+        m += time_span2.count();
+    }
+    cout << k << endl << m << endl << n << endl << endl;
+    k = 0.0; m = 0.0; n = 0.0;
+    Array b;
+    for (int j = 0; j < 20; ++j) {
+        int l[number];
+        for (int i = 0; i < number; ++i) {
+            l[i] = distribution(rd);
+        }
+        t1 = std::chrono::high_resolution_clock::now();
+        for (int i = 0; i < number; ++i) {
+            b.add(i, l[i]);
+        }
+        t2 = std::chrono::high_resolution_clock::now();
+        for (int i = 0; i < number; ++i) {
+            b.find(rand() % number);
+        }
+        t3 = std::chrono::high_resolution_clock::now();
+        for (int i = 0; i < number; ++i) {
+            b.remove(number-i-1);
+        }
+        t4 = std::chrono::high_resolution_clock::now();
+        auto time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
+        auto time_span1 = std::chrono::duration_cast<std::chrono::duration<double>>(t3 - t2);
+        auto time_span2 = std::chrono::duration_cast<std::chrono::duration<double>>(t4 - t3);
+        k += time_span.count();
+        n += time_span1.count();
+        m += time_span2.count();
+    }
+    cout << k << endl << m << endl << n << endl << endl;
+    k = 0.0; m = 0.0; n = 0.0;
+    Array c;
+    for (int j = 0; j < 20; ++j) {
+        int l[number];
+        for (int i = 0; i < number; ++i) {
+            l[i] = distribution(rd);
+        }
+        t1 = std::chrono::high_resolution_clock::now();
+        for (int i = 0; i < number; ++i) {
+            c.add(i>0 ? rand()%i : 0, l[i]);
+        }
+        t2 = std::chrono::high_resolution_clock::now();
+        for (int i = 0; i < number; ++i) {
+            c.find(i>0 ? rand()%i : 0);
+        }
+        t3 = std::chrono::high_resolution_clock::now();
+        for (int i = 0; i < number; ++i) {
+            c.remove(number-i-1);
+        }
+        t4 = std::chrono::high_resolution_clock::now();
+        auto time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
+        auto time_span1 = std::chrono::duration_cast<std::chrono::duration<double>>(t3 - t2);
+        auto time_span2 = std::chrono::duration_cast<std::chrono::duration<double>>(t4 - t3);
+        k += time_span.count();
+        n += time_span1.count();
+        m += time_span2.count();
+    }
+    cout << k << endl << m << endl << n << endl << endl;
+    k = 0.0; m = 0.0; n = 0.0;
+}
+
+void testBH(int number) {
+    BinaryHeap a;
+    cout<<number<<": "<<endl;
+    std::random_device rd;
+    std::uniform_int_distribution<int> distribution(0, 0xffffffff);
+    auto t1 = std::chrono::high_resolution_clock::now();
+    auto t2 = std::chrono::high_resolution_clock::now();
+    auto t4 = std::chrono::high_resolution_clock::now();
+    auto t3 = std::chrono::high_resolution_clock::now();
+
+    srand(0);
+    double k = 0.0, m = 0.0, n = 0.0;
+    for (int j = 0; j < 100; ++j) {
+        int l[number];
+        for (int i = 0; i < number; ++i) {
+            l[i] = distribution(rd);
+        }
+        t1 = std::chrono::high_resolution_clock::now();
+        for (int i = 0; i < number; ++i) {
+            a.add(l[i]);
+        }
+        t2 = std::chrono::high_resolution_clock::now();
+        for (int i = 0; i < number; ++i) {
+            a.find(rand() % number);
+        }
+        t3 = std::chrono::high_resolution_clock::now();
+        for (int i = 0; i < number; ++i) {
+            a.remove(0);
+        }
+        t4 = std::chrono::high_resolution_clock::now();
+        auto time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
+        auto time_span1 = std::chrono::duration_cast<std::chrono::duration<double>>(t3 - t2);
+        auto time_span2 = std::chrono::duration_cast<std::chrono::duration<double>>(t4 - t3);
+        k += time_span.count();
+        n += time_span1.count();
+        m += time_span2.count();
+    }
+    cout << k << endl << m << endl << n << endl << endl;
+}
+
+int main() {
+
+    cout<<"### RBT ###"<<endl;
+    testRBT(5000);
+    testRBT(8000);
+    testRBT(10000);
+    testRBT(16000);
+    testRBT(20000);
+    testRBT(40000);
+    testRBT(60000);
+    testRBT(100000);
+    cout<<endl<<"### DLL ###"<<endl<<endl;
+    testDLL(5000);
+    testDLL(8000);
+    testDLL(10000);
+    testDLL(16000);
+    testDLL(20000);
+    testDLL(40000);
+    testDLL(60000);
+    testDLL(100000);
+    cout<<endl<<"### Array ###"<<endl<<endl;
+    testA(5000);
+    testA(8000);
+    testA(10000);
+    testA(16000);
+    testA(20000);
+    testA(40000);
+    testA(60000);
+    testA(100000);
+    cout<<endl<<"### Array ###"<<endl<<endl;
+    testBH(5000);
+    testBH(8000);
+    testBH(10000);
+    testBH(16000);
+    testBH(20000);
+    testBH(40000);
+    testBH(60000);
+    testBH(100000);
+
+
     //menu();
-
-    //RedBlackTree a;
-    //a.buildFromFile("bst2.txt");
-    //auto t1 = std::chrono::high_resolution_clock::now();
-    /*for (int i = 0; i <400000 ; ++i) {
-        a.add(i);
-    }*/
-    //auto t2 = std::chrono::high_resolution_clock::now();
-    //a.remove(15);
-   // a.remove(0);
-    //a.buildFromFile("bst2.txt");
-
-    //a.display();
-
-    //auto time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
-    //a.display();
-    //cout<<time_span.count();
-
-    //DoublyLinkedList a;
-    //a.add(1,12);
-    //a.display();
-    //a.remove(0);
-    //a.display();
-
-    //BinaryHeap a;
-    /*a.add(10);
-    a.display();
-    a.remove(0);
-    a.add(15);
-    a.add(232);
-    a.display();
-    a.buildFromFile("heap2.txt");
-    a.display();
-    a.remove(8);
-    a.display();
-    a.remove(5);
-    a.display();
-    a.remove(6);
-    a.remove(4);
-    a.display();
-    a.remove(4);
-    a.display();
-    a.remove(3);
-    a.display();
-    a.remove(3);
-    a.display();
-    a.remove(4);
-    a.display();
-    a.remove(2);
-    a.display();
-    a.remove(0);
-    a.display();
-*/
-
     system("pause");
     return 0;
 }

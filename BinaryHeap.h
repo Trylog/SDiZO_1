@@ -18,6 +18,7 @@ namespace std {
 
         static inline void swap(int* a,int* b);
         void heapify(int i);
+        void displayH(int node, string printed, bool rL);
 
     public:
         BinaryHeap();

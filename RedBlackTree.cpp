@@ -150,7 +150,7 @@ namespace std {
                     if (brother->right->color == BLACK) {
                         brother->left->color = BLACK;
                         brother->color = RED;
-                        rotateRight(brother);
+                        rotateRight(brother->left);
                         brother = element->parent->right;
                     }
                     brother->color = element->parent->color;
@@ -164,7 +164,7 @@ namespace std {
                 if (brother->color==RED){
                     brother->color=BLACK;
                     element->parent->color=RED;
-                    rotateRight(element->parent);
+                    rotateRight(element->parent->left);
                     brother=element->parent->left;
                 }
                 if (brother->right->color==BLACK && brother->left->color==BLACK){
@@ -180,7 +180,7 @@ namespace std {
                     brother->color = element->parent->color;
                     element->parent->color = BLACK;
                     brother->left->color = BLACK;
-                    rotateRight(element->parent);
+                    rotateRight(element->parent->left);
                     element = root;
                 }
             }
@@ -240,6 +240,7 @@ namespace std {
             treeMin->color=element->color;
         }
         if(ogColor==BLACK) removeFixup(newer);
+        free(element);
     }
 
     void RedBlackTree::creatRandom(int size) {

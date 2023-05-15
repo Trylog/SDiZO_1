@@ -20,7 +20,7 @@ namespace std {
                 node* parent;
         };
         node* pNil, nil{};
-        node* root;
+
         void rotateLeft(node* element);
         void rotateRight(node* element);
         void addFixup(node* element);
@@ -30,6 +30,7 @@ namespace std {
         node* findP(int element);
         void displayH(node* node, string printed, bool lR);
     public:
+        node* root;
         RedBlackTree();
         void buildFromFile(string filePath);
         void remove(int data);

@@ -17,9 +17,9 @@ namespace std {
             struct node* next;
             struct node* prev;
         };
+    public:
         struct node* headP;
         struct node* tailP;
-    public:
         DoublyLinkedList();
         void buildFromFile(string filePath);
         void remove(int element);

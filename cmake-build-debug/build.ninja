@@ -51,31 +51,31 @@ build cmake_object_order_depends_target_SDiZO_1: phony || CMakeFiles/SDiZO_1.dir
 
 build CMakeFiles/SDiZO_1.dir/main.cpp.obj: CXX_COMPILER__SDiZO_1_Debug C$:/Users/micha/CLionProjects/SDiZO_1/main.cpp || cmake_object_order_depends_target_SDiZO_1
   DEP_FILE = CMakeFiles\SDiZO_1.dir\main.cpp.obj.d
-  FLAGS = -g -fdiagnostics-color=always
+  FLAGS = -static-libstdc++ -static-libgcc -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\SDiZO_1.dir
   OBJECT_FILE_DIR = CMakeFiles\SDiZO_1.dir
 
 build CMakeFiles/SDiZO_1.dir/DoublyLinkedList.cpp.obj: CXX_COMPILER__SDiZO_1_Debug C$:/Users/micha/CLionProjects/SDiZO_1/DoublyLinkedList.cpp || cmake_object_order_depends_target_SDiZO_1
   DEP_FILE = CMakeFiles\SDiZO_1.dir\DoublyLinkedList.cpp.obj.d
-  FLAGS = -g -fdiagnostics-color=always
+  FLAGS = -static-libstdc++ -static-libgcc -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\SDiZO_1.dir
   OBJECT_FILE_DIR = CMakeFiles\SDiZO_1.dir
 
 build CMakeFiles/SDiZO_1.dir/Array.cpp.obj: CXX_COMPILER__SDiZO_1_Debug C$:/Users/micha/CLionProjects/SDiZO_1/Array.cpp || cmake_object_order_depends_target_SDiZO_1
   DEP_FILE = CMakeFiles\SDiZO_1.dir\Array.cpp.obj.d
-  FLAGS = -g -fdiagnostics-color=always
+  FLAGS = -static-libstdc++ -static-libgcc -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\SDiZO_1.dir
   OBJECT_FILE_DIR = CMakeFiles\SDiZO_1.dir
 
 build CMakeFiles/SDiZO_1.dir/BinaryHeap.cpp.obj: CXX_COMPILER__SDiZO_1_Debug C$:/Users/micha/CLionProjects/SDiZO_1/BinaryHeap.cpp || cmake_object_order_depends_target_SDiZO_1
   DEP_FILE = CMakeFiles\SDiZO_1.dir\BinaryHeap.cpp.obj.d
-  FLAGS = -g -fdiagnostics-color=always
+  FLAGS = -static-libstdc++ -static-libgcc -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\SDiZO_1.dir
   OBJECT_FILE_DIR = CMakeFiles\SDiZO_1.dir
 
 build CMakeFiles/SDiZO_1.dir/RedBlackTree.cpp.obj: CXX_COMPILER__SDiZO_1_Debug C$:/Users/micha/CLionProjects/SDiZO_1/RedBlackTree.cpp || cmake_object_order_depends_target_SDiZO_1
   DEP_FILE = CMakeFiles\SDiZO_1.dir\RedBlackTree.cpp.obj.d
-  FLAGS = -g -fdiagnostics-color=always
+  FLAGS = -static-libstdc++ -static-libgcc -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\SDiZO_1.dir
   OBJECT_FILE_DIR = CMakeFiles\SDiZO_1.dir
 
@@ -88,7 +88,8 @@ build CMakeFiles/SDiZO_1.dir/RedBlackTree.cpp.obj: CXX_COMPILER__SDiZO_1_Debug C
 # Link the executable SDiZO_1.exe
 
 build SDiZO_1.exe: CXX_EXECUTABLE_LINKER__SDiZO_1_Debug CMakeFiles/SDiZO_1.dir/main.cpp.obj CMakeFiles/SDiZO_1.dir/DoublyLinkedList.cpp.obj CMakeFiles/SDiZO_1.dir/Array.cpp.obj CMakeFiles/SDiZO_1.dir/BinaryHeap.cpp.obj CMakeFiles/SDiZO_1.dir/RedBlackTree.cpp.obj
-  FLAGS = -g
+  FLAGS = -static-libstdc++ -static-libgcc -g
+  LINK_FLAGS = -static
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\SDiZO_1.dir
   POST_BUILD = cd .
