@@ -295,7 +295,7 @@ int main() {
     testRBT(20000);
     testRBT(40000);
     testRBT(60000);
-    testRBT(100000);
+    testRBT(100000);*/
     cout<<endl<<"### DLL ###"<<endl<<endl;
     testDLL(5000);
     testDLL(8000);
@@ -304,7 +304,7 @@ int main() {
     testDLL(20000);
     testDLL(40000);
     testDLL(60000);
-    testDLL(100000);
+    testDLL(100000);/*
     cout<<endl<<"### Array ###"<<endl<<endl;
     testA(5000);
     testA(8000);

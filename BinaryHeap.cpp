@@ -20,7 +20,6 @@ namespace std {
     }
     void BinaryHeap::heapify(int i) {
         int largest;
-        //int top = heap[i];
         while(true){
             auto left = i*2+1;
             auto right = i*2+2;
@@ -31,15 +30,7 @@ namespace std {
             if(largest != i){swap(&heap[i], &heap[largest]);
             } else break;
             i = largest;
-            /*
-            if(right<size && heap[right]>heap[left]){
-                largest=right;
-            } else largest=left;
-            if(top>=heap[largest])break;
-            heap[i]=heap[largest];
-            i=largest;*/
         }
-        //heap[i]=top;
     }
     void BinaryHeap::add(int element) {
         heap[size]=element;
