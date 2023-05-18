@@ -78,7 +78,7 @@ void testDLL(int number) {
         }
         t3 = std::chrono::high_resolution_clock::now();
         for (int i = 0; i < number; ++i) {
-            a.remove(a.tailP->data);
+            a.remove(l[i]);
         }
         t4 = std::chrono::high_resolution_clock::now();
         auto time_span = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
@@ -287,8 +287,8 @@ void testBH(int number) {
 
 int main() {
 
-    cout<<"### RBT ###"<<endl;
-    testRBT(5000);
+    //cout<<"### RBT ###"<<endl;
+    /*testRBT(5000);
     testRBT(8000);
     testRBT(10000);
     testRBT(16000);
@@ -313,8 +313,8 @@ int main() {
     testA(20000);
     testA(40000);
     testA(60000);
-    testA(100000);
-    cout<<endl<<"### Array ###"<<endl<<endl;
+    testA(100000);*//*
+    cout<<endl<<"### BinaryHeap ###"<<endl<<endl;
     testBH(5000);
     testBH(8000);
     testBH(10000);
@@ -322,10 +322,27 @@ int main() {
     testBH(20000);
     testBH(40000);
     testBH(60000);
-    testBH(100000);
+    testBH(100000);*/
+    /*auto test = new Array();
+    test->buildFromFile("tab1.txt");
+    test->display();
+    test->remove(2);
+    test->remove(3);
+    test->remove(0);
+    test->remove(0);
+    test->remove(0);
+    test->display();
+    test->add(0,2);
+    test->add(1,6);
+    test->add(2,8);
+    test->add(1,4);
+    test->display();
+    test->add(0,0);
+    test->display();*/
 
 
-    //menu();
+
+    menu();
     system("pause");
     return 0;
 }

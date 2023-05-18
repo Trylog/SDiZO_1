@@ -12,35 +12,35 @@ namespace std {
     Array::Array() {
         pointer = (int*) malloc(sizeof(int));
         pointer[0]=NULL;
+        size = 0;
     }
 
     void Array::add(int index, int element) {
-        auto arrayLen=0;
-        for(;pointer[arrayLen] != NULL; ++arrayLen);
-        if(index<0||index>=arrayLen+1)cout<<endl<<"### WRONG INDEX ###"<<endl; //wrong index
+        if(index<0||index>=size+1)cout<<endl<<"### WRONG INDEX ###"<<endl; //wrong index
         int* tempPointer=NULL;
-        tempPointer = (int*)malloc(sizeof(int) * (arrayLen + 2));
+        tempPointer = (int*)malloc(sizeof(int) * (size + 2));
         if (tempPointer){
             for(auto i = 0; i<index;++i) tempPointer[i] = pointer[i];
             tempPointer[index] = element;
-            for(auto i = index; i<=arrayLen;++i) tempPointer[i+1] = pointer[i];
+            for(auto i = index; i<size;++i) tempPointer[i+1] = pointer[i];
+            tempPointer[size + 1] = NULL;
             free(pointer);
             pointer=tempPointer;
+            size++;
         }else throw -2; //failed to reallocate array
     }
 
     void Array::remove(int index) {
-        auto arrayLen=0;
-        for(;pointer[arrayLen] != NULL; ++arrayLen);
-        if(arrayLen>0 && index>=0 && index<=arrayLen){
-            for(auto i = index; i<arrayLen;++i) pointer[i] = pointer[i+1];
-            pointer = (int*) realloc(pointer, sizeof(int) * arrayLen);
+        if(size>0 && index>=0 && index<=size){
+            for(auto i = index; i<size;++i) pointer[i] = pointer[i+1];
+            pointer = (int*) realloc(pointer, sizeof(int) * size);
+            size--;
         } else cout<<endl<<"### WRONG INDEX ###"<<endl; //wrong index
     }
 
     void Array::display() {
         cout<< "Array: \n";
-        for (auto i = 0; pointer[i]!=NULL; ++i) {
+        for (auto i = 0; i<size; ++i) {
             cout<<pointer[i]<<" ";
         }
         cout<<endl;
@@ -50,12 +50,11 @@ namespace std {
         fstream input;
         input.open(filePath, ios::in);
         if(input.good()){
-            int arrayLen = 0;
-            input>>arrayLen;
-            if(arrayLen){
+            input>>size;
+            if(size){
                 free(pointer);
-                if(!(pointer = (int*)malloc(sizeof(int)*arrayLen+1))) throw -2; //failed to allocate memory
-                for (auto i = 0; i < arrayLen; ++i){
+                if(!(pointer = (int*)malloc(sizeof(int)*size+1))) throw -2; //failed to allocate memory
+                for (auto i = 0; i < size; ++i){
                     if(!input.eof()){
                         int temp=0;
                         input>>temp;
@@ -63,13 +62,13 @@ namespace std {
                         pointer[i]=temp;
                     }else throw -3; //wrong file length
                 }
-                pointer[arrayLen]=NULL;
+                pointer[size]=NULL;
             }
         }
     }
 
     bool Array::find(int element) {
-        for (auto i = 0; pointer[i]!=NULL; ++i) {
+        for (auto i = 0; i<size; ++i) {
             if(pointer[i]==element)return true;
         }
         return false;

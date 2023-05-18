@@ -12,6 +12,7 @@ namespace std {
     class Array {
     private:
         int* pointer;
+        int size;
     public:
         Array();
         void buildFromFile(string filePath);
